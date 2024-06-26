@@ -1,11 +1,3 @@
-# variable "environment" {
-#   description = "Environment (e.g., dev, prod)"
-# }
-
-# variable "project" {
-#   description = "Project name"
-# }
-
 variable "policy_name" {
   description = "Name of the IAM policy"
   type        = string
@@ -19,6 +11,15 @@ variable "policy_description" {
 variable "role_name" {
   description = "Name of the IAM role"
   type        = string
+}
+variable "alb_actions" {
+  type    = list(string)
+  description = "List of ALB actions allowed by the IAM policy"
+}
+
+variable "rds_actions" {
+  type    = list(string)
+  description = "List of RDS actions allowed by the IAM policy"
 }
 
 variable "assume_role_principals" {

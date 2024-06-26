@@ -1,6 +1,6 @@
 region            = "eu-west-1"
 environment       = "dev"
-project           = "my_project"
+project           = "myproject"
 ami               = "ami-0c55b159cbfafe1f0"   # Adjusted for Europe region
 instance_type     = "t2.micro"
 cidr_block        = "10.0.1.0/24"
@@ -8,6 +8,14 @@ bucket_name       = "dev_bucket"
 trail_name        = "dev_cloudtrail"
 waf_name          = "dev_WAF"
 waf_metric_name   = "dev2024"
+allocated_storage      = 20
+engine                 = "mysql"
+instance_class         = "db.t2.micro"
+# db_name                = "mydatabase"
+username               = "admin"
+password               = "password123"
+# parameter_group_name   = "default.mysql5.7"
+# subnet_group_name      = "my-subnet-group"
 
 vpc_cidr = "172.17.32.0/19"
 azs = ["eu-west-1a","eu-west-1b","eu-west-1c"]

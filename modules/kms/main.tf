@@ -1,24 +1,12 @@
-resource "aws_kms_key" "this" {
-  description             = "KMS key for encryption"
-  enable_key_rotation     = true
+data "aws_caller_identity" "current" {}
 
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Id": "key-default-1",
-  "Statement": [
-    {
-      "Sid": "Enable IAM User Permissions",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
-      },
-      "Action": "kms:*",
-      "Resource": "*"
-    }
-  ]
-}
-EOF
+resource "aws_kms_key" "this" {
+  description         = "KMS key for encryption"
+  enable_key_rotation = true
+
+  policy = templatefile("${path.module}/policy.tpl", {
+    account_id = data.aws_caller_identity.current.account_id
+  })
 
   tags = {
     Name        = "kms"
@@ -27,6 +15,3 @@ EOF
   }
 }
 
-output "kms_key_id" {
-  value = aws_kms_key.this.id
-}

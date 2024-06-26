@@ -1,31 +1,3 @@
-# resource "aws_iam_role" "this" {
-#   name = "my-role"
-
-#   assume_role_policy = jsonencode({
-#     Version = "2012-10-17"
-#     Statement = [
-#       {
-#         Action = "sts:AssumeRole"
-#         Effect = "Allow"
-#         Principal = {
-#           Service = "ec2.amazonaws.com"
-#         }
-#       }
-#     ]
-#   })
-
-#   tags = {
-#     Name        = "iam"
-#     Environment = var.environment
-#     Project     = var.project
-#   }
-# }
-
-# output "iam_role_id" {
-#   value = aws_iam_role.this.id
-# }
-
-
 resource "aws_iam_policy" "access_policy" {
   name        = var.policy_name
   description = var.policy_description
@@ -35,6 +7,8 @@ resource "aws_iam_policy" "access_policy" {
     guardduty_actions   = var.guardduty_actions
     waf_actions         = var.waf_actions
     kms_actions         = var.kms_actions
+    rds_actions         = var.rds_actions
+    alb_actions         = var.alb_actions
     resources           = var.resources
   })
 }

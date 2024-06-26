@@ -103,4 +103,46 @@ module "iam_policy_role" {
   policy_description    = "Policy to access S3, CloudTrail, GuardDuty, WAF, and KMS"
   role_name             = "MyAccessRole"
   assume_role_principals = ["ec2.amazonaws.com"]
+
+  alb_actions = [
+    "elasticloadbalancing:Describe*",
+    "elasticloadbalancing:RegisterInstancesWithLoadBalancer"
+    // Add more ALB actions as needed
+  ]
+
+  rds_actions = [
+    "rds:Describe*",
+    "rds:CreateDBInstance"
+    // Add more RDS actions as needed
+  ]
+}
+
+
+
+module "kms_key" {
+  source      = "./modules/kms"
+  environment = "production"
+  project     = "my-project"
+}
+
+module "rds" {
+  source                  = "./modules/rds"
+  allocated_storage       = var.allocated_storage
+  engine                  = var.engine
+  instance_class          = var.instance_class
+  username                = var.username
+  password                = var.password
+  environment             = var.environment
+  parameter_group_name    = "${var.project}parameter"
+  db_subnet_group_name    = "${var.project}subnet"
+  project                 = var.project
+  vpc_security_group_id = [module.security_group.security_group_id]
+}
+
+module "alb" {
+  source          = "./modules/alb"
+  security_groups = [module.security_group.security_group_id]
+  subnets         = [module.subnet.subnet_id]
+  environment     = var.environment
+  project         = var.project
 }

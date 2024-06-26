@@ -8,6 +8,14 @@ bucket_name       = "dev_bucket"
 trail_name        = "dev_cloudtrail"
 waf_name          = "dev_WAF"
 waf_metric_name   = "dev2024"
+allocated_storage      = 20
+engine                 = "mysql"
+instance_class         = "db.t2.micro"
+db_name                = "mydatabase"
+username               = "admin"
+password               = "password123"
+parameter_group_name   = "default.mysql5.7"
+subnet_group_name      = "my-subnet-group"
 
 vpc_cidr = "172.18.32.0/19"
 azs = ["cn-north-1a", "cn-north-1b", "cn-north-1c"]

@@ -9,3 +9,7 @@ output "subnet_id" {
 output "instance_id" {
   value = module.instance.instance_id
 }
+
+output "vpc_security_group_id" {
+  value = module.security_group.security_group_id
+}

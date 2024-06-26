@@ -25,6 +25,20 @@
       "Effect": "Allow",
       "Action": ${jsonencode(kms_actions)},
       "Resource": ${jsonencode(resources)}
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "rds:*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "elasticloadbalancing:*"
+      ],
+      "Resource": "*"
     }
   ]
 }
